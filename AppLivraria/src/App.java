@@ -1,12 +1,19 @@
 import model.Autor;
 import model.Cliente;
 import model.Livro;
+
 import repository.LivroRepository;
+
 import service.GerenciadorEstoque;
 import service.ServicoVenda;
 
 public class App {
+
     public static void main(String[] args) {
+
+        System.out.println("=================================");
+        System.out.println("        APP LIVRARIA");
+        System.out.println("=================================\n");
 
         // Criando autores
         Autor autor1 = new Autor("George Orwell", "Inglaterra");
@@ -28,23 +35,29 @@ public class App {
         // Criando cliente
         Cliente cliente = new Cliente("Tatiane", "tatiane@email.com");
 
-        // Listando livros
-        System.out.println("=== Catálogo de Livros ===");
+        // Exibindo catálogo
+        System.out.println("📚 Catálogo de Livros:");
         for (Livro livro : repositorio.listar()) {
             System.out.println(livro);
         }
 
-        // Venda
+        System.out.println("\n--- Realizando venda ---");
+
+        // Venda de livro
         venda.venderLivro(livro1, cliente, 2);
 
-        // Atualizando estoque
+        System.out.println("\n--- Atualizando estoque ---");
+
+        // Atualização de estoque
         estoque.removerEstoque(livro2, 1);
         estoque.adicionarEstoque(livro1, 3);
 
-        // Listando novamente
-        System.out.println("\n=== Estoque Atualizado ===");
+        // Exibindo estoque atualizado
+        System.out.println("\n📦 Estoque Atualizado:");
         for (Livro livro : repositorio.listar()) {
             System.out.println(livro);
         }
+
+        System.out.println("\nSistema finalizado.");
     }
 }
