@@ -7,6 +7,8 @@ import repository.LivroRepository;
 import service.GerenciadorEstoque;
 import service.ServicoVenda;
 
+import worker.VendaWorker; // 👈 NOVO
+
 public class App {
 
     public static void main(String[] args) {
@@ -14,6 +16,13 @@ public class App {
         System.out.println("=================================");
         System.out.println("        APP LIVRARIA");
         System.out.println("=================================\n");
+
+        // 👇 INICIANDO WORKER
+        Thread worker = new Thread(new VendaWorker());
+        worker.setDaemon(true);
+        worker.start();
+
+        System.out.println("Worker iniciado!\n");
 
         // Criando autores
         Autor autor1 = new Autor("George Orwell", "Inglaterra");
@@ -43,7 +52,7 @@ public class App {
 
         System.out.println("\n--- Realizando venda ---");
 
-        // Venda de livro
+        // Venda de livro (AGORA ASSÍNCRONA)
         venda.venderLivro(livro1, cliente, 2);
 
         System.out.println("\n--- Atualizando estoque ---");
